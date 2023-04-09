@@ -1,0 +1,12 @@
+server:
+  port: 8060
+  tomcat:
+    max-http-form-post-size: 8192
+
+# 路径
+api:
+  img: # 图片相关配置
+    path:
+      absolute-path: "D:/desktop/img"
+      relative-path: "/img"
+      is-relative-path: true
