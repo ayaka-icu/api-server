@@ -40,7 +40,7 @@ GET: /img/url
 - 示例1：[http://api.ayaka.icu/img/url](http://api.ayaka.icu/img/url) 获取数据一张横图图片
 - 示例2：[http://api.ayaka.icu/img/url?bili=2](http://api.ayaka.icu/img/url?bili=2) 获取数据一张横图图片
 
-<br>
+<br> <hr> <br>
 
 
 
@@ -63,7 +63,7 @@ GET: /img/url.io
 - 示例2：[http://api.ayaka.icu/img/url.io?bili=2](http://api.ayaka.icu/img/url.io?bili=2) 获取数据一张横图图片
 - 注意：性能`GET: /img/url`差
 
-<br>
+<br> <hr> <br>
 
 
 
@@ -81,7 +81,7 @@ GET: /img/url/json
 - 请求参数：无
 - 示例1：[http://api.ayaka.icu/img/url/json](http://api.ayaka.icu/img/url/json) 获取数据一张横图图片
 
-<br>
+<br> <hr> <br>
 
 
 
@@ -104,8 +104,7 @@ GET: /img/file.io
 - 示例2：[https://api.ayaka.icu/img/file.io?bili=2](https://api.ayaka.icu/img/file.io?bili=2) 获取数据一张横图图片
 - 注意：性能`GET: /img/url.io` 好
 
-<br>
-
+<br> <hr> <br>
 
 
 **获取给定诺干URL随机图片 - 重定向**
@@ -121,6 +120,8 @@ GET: /img/tool/urls?urls=xxx@@xxx
 - 示例1：[https://api.ayaka.icu//img/tool/urls?urls=http://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@http://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg](https://api.ayaka.icu/img/tool/urls?urls=http://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@http://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg) 
 - 注意：性能`GET: /img/url.io` 好
 
+
+<br> <hr> <br>
 
 
 **获取给定诺干URL随机图片 - 响应体返回**
@@ -139,7 +140,7 @@ GET: /img/tool/urls.io?urls=xxx@@xxx
   - **非必要请勿使用！**
 
 
-
+<br> <hr> <br>
 
 
 
