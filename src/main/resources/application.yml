@@ -7,9 +7,9 @@ spring:
     name: api-img
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://ip:3306/database?useSSL=false&serverTimezone=UTC
-    username: username
-    password: password
+    url: jdbc:mysql://ayaka.icu:3306/api-server?useSSL=false&serverTimezone=UTC
+    username: api-server
+    password: F2AWsanAPNfpLnr3
 
 
 
@@ -22,6 +22,6 @@ api:
       relative-path: "/img"
       is-relative-path: true
     add: # 添加图片时，使用的请求体参数
-      auth: "xxxxxxxxxxxxxxxxxxxxxxxx" # 添加认证
+      auth: "AHRE56FaehDSFG5agheSFE*&ASDKGJ@&56AG4!@%585AEsfdGSDG"
   # ......
 
