@@ -86,14 +86,24 @@ public class AddController {
                     //写入数据库
                     if (isLocal){
                         ImgFile imgFile = ImgUtils.newImgByFile(new File(path));
-                        boolean save = imgFileService.save(imgFile);
-                        System.out.print("图片URL: " + path);
-                        System.out.print("是否添加成功: " + save + "\n");
+                        try{
+                            boolean save = imgFileService.save(imgFile);
+                            System.out.print("图片URL: " + path);
+                            System.out.print("是否添加成功: " + save + "\n");
+                        }catch (Exception e){
+                            System.out.print("图片URL: " + path);
+                            System.out.print("是否添加成功: " + false + "\n");
+                        }
                     }else {
                         Img img = ImgUtils.newImgByUrl(path);
-                        boolean save = imgService.save(img);
-                        System.out.print("图片URL: " + path);
-                        System.out.print("是否添加成功: " + save + "\n");
+                        try{ //可能会添加失败,这里try为了对下面的继续进行添加
+                            boolean save = imgService.save(img);
+                            System.out.print("图片URL: " + path);
+                            System.out.print("是否添加成功: " + save + "\n");
+                        }catch (Exception e){
+                            System.out.print("图片URL: " + path);
+                            System.out.print("是否添加成功: " + false + "\n");
+                        }
                     }
 
                 }
@@ -130,7 +140,14 @@ public class AddController {
                         "swf".equals(sup) || "webp".equals(sup)) {
                     //执行添加
                     ImgFile imgFile = ImgUtils.newImgByFile(file);
-                    imgFileService.save(imgFile);
+                    try{ //可能会添加失败,这里try为了对下面的继续进行添加
+                        boolean save = imgFileService.save(imgFile);
+                        System.out.print("图片URL: " + path);
+                        System.out.print("是否添加成功: " + save + "\n");
+                    }catch (Exception e){
+                        System.out.print("图片URL: " + path);
+                        System.out.print("是否添加成功: " + false + "\n");
+                    }
                 }
             }
         }

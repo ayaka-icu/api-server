@@ -37,8 +37,8 @@ GET: /img/url
     - `bili=1` ：
     - `bili=2` ：竖图
     - `bili=3` ：似正方形
-- 示例1：[http://api.ayaka.icu/img/url](http://api.ayaka.icu/img/url) 获取数据一张横图图片
-- 示例2：[http://api.ayaka.icu/img/url?bili=2](http://api.ayaka.icu/img/url?bili=2) 获取数据一张横图图片
+- 示例1：[https://api.ayaka.icu/img/url](https://api.ayaka.icu/img/url) 获取数据一张横图图片
+- 示例2：[https://api.ayaka.icu/img/url?bili=2](https://api.ayaka.icu/img/url?bili=2) 获取数据一张横图图片
 
 <br> <hr> <br>
 
