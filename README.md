@@ -18,15 +18,13 @@
 
 <h3>🏷️使用技术栈&工具</h3>
 
-:![](http://api.ayaka.icu/icons?i=java,spring,mysql,linux,idea,vscode,maven,html,css,git,github)🛠️
+![](http://api.ayaka.icu/icons?i=java,spring,mysql,linux,idea,vscode,maven,html,css,git,github)🛠️
 
 
 
 
 
-
-
-<br><br><br><br>
+<br><br>
 
 ---
 
@@ -51,18 +49,18 @@
 ## Img-Api-Docs：
 
 
-- [获取随机图片 - 重定向](###获取随机图片 - 重定向)
-- [获取随机图片 - 响应体](###获取随机图片 - 响应体)
-- [获取随机图片 - JSON数据](###获取随机图片 - JSON数据)
-- [获取随机图片 - 响应体 - 服务器](###获取随机图片 - 响应体 - 服务器)
-- [获取给定诺干URL随机图片 - 重定向](###获取给定诺干URL随机图片 - 重定向)
-- [获取给定诺干URL随机图片 - 响应体返回](###获取给定诺干URL随机图片 - 响应体返回)
-- [获取指定参数图标-Icons](###获取指定参数图标-Icons)
-- 更多实现中......
+- 🏷️获取随机图片 - 重定向
+- 🏷️获取随机图片 - 响应体
+- 🏷️获取随机图片 - JSON数据
+- 🏷️获取随机图片 - 响应体 - 服务器
+- 🏷️获取给定诺干URL随机图片 - 重定向
+- 🏷️获取给定诺干URL随机图片 - 响应体返回
+- 🏷️获取指定参数图标-Icons
+- 🏷️更多实现中......
 
 
 
-
+<br><br>
 
 ## API
 
