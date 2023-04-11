@@ -40,7 +40,7 @@
 
 # Img-图片模块
 
-![](https://ayaka-icu-oss.oss-cn-beijing.aliyuncs.com/img/github/img/img01.jpg)
+![](./img/img01.jpg)
 
 <br>
 
