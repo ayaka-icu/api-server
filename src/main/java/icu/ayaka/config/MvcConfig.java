@@ -1,4 +1,4 @@
-package icu.ayaka.img.config;
+package icu.ayaka.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;

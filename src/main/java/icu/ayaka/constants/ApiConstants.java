@@ -1,4 +1,4 @@
-package icu.ayaka.img.constants;
+package icu.ayaka.constants;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

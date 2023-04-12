@@ -18,7 +18,7 @@
 
 <h3>🏷️使用技术栈&工具</h3>
 
-![](http://api.ayaka.icu/icons?i=java,spring,mysql,linux,idea,vscode,maven,html,css,git,github)🛠️
+![](http://api.ayaka.icu/icons?i=java,spring,redis,mysql,linux,idea,vscode,maven,html,css,git,github)🛠️
 
 
 

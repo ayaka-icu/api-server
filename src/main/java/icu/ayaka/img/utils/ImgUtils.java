@@ -6,6 +6,7 @@ import icu.ayaka.img.entity.Img;
 import icu.ayaka.img.dto.ImgDto;
 import icu.ayaka.img.entity.ImgFile;
 import org.apache.commons.io.IOUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
 
 import javax.imageio.ImageIO;

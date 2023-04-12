@@ -1,14 +1,15 @@
-package icu.ayaka.img.controller;
+package icu.ayaka.img.controller.manage;
 
-import icu.ayaka.img.constants.ApiConstants;
-import icu.ayaka.img.dto.Auth;
+import icu.ayaka.constants.ApiConstants;
+import icu.ayaka.img.cache.ImgCache;
+import icu.ayaka.img.cache.ImgFileCache;
 import icu.ayaka.img.entity.Img;
 import icu.ayaka.img.entity.ImgFile;
 import icu.ayaka.img.service.IImgFileService;
 import icu.ayaka.img.service.IImgService;
 import icu.ayaka.img.utils.ImgUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +22,20 @@ import java.io.IOException;
 @RequestMapping("/img/add")
 public class AddController {
 
-    @Autowired
-    private IImgService imgService;
+    //依赖注入:
+    private final IImgService imgService;
+    private final IImgFileService imgFileService;
+    private final ApiConstants apiConstants;
+    private final ImgCache imgCache;
+    private final ImgFileCache imgFileCache;
+    public AddController(IImgService imgService, IImgFileService imgFileService, ApiConstants apiConstants, ImgCache imgCache, ImgFileCache imgFileCache) {
+        this.imgService = imgService;
+        this.imgFileService = imgFileService;
+        this.apiConstants = apiConstants;
+        this.imgCache = imgCache;
+        this.imgFileCache = imgFileCache;
+    }
 
-    @Autowired
-    private IImgFileService imgFileService;
-
-    @Autowired
-    private ApiConstants apiConstants;
 
     @PostMapping("/file/local")
     public String me(@RequestParam(value = "path",required = false) String pathParam,
@@ -49,7 +56,7 @@ public class AddController {
         if (!apiConstants.auth.equals(auth)){
             return "你没有权限!";
         }
-        this.getBySrc(pathParam);
+        this.addBySrc(pathParam);
         return "添加成功";
     }
 
@@ -66,12 +73,14 @@ public class AddController {
         return "添加成功";
     }
 
+    // ==========================================================
+
     /**
      * 封装
      * @param pathParam 路径
      * @param isLocal 是否为本地
      */
-    private void addByFile(String pathParam,boolean isLocal){
+    public void addByFile(String pathParam,boolean isLocal){
         //创建字符缓冲流
         BufferedReader br = null;
 
@@ -84,20 +93,26 @@ public class AddController {
                 if (!"".equals(path)) {
                     //根据路径获取图片对象
                     //写入数据库
-                    if (isLocal){
+                    if (isLocal){ //本地
                         ImgFile imgFile = ImgUtils.newImgByFile(new File(path));
                         try{
+                            //保存到数据库
                             boolean save = imgFileService.save(imgFile);
+                            //写入缓存
+                            imgFileCache.addNewCache(imgFile.getId().toString(),imgFile.getScale().toString());
                             System.out.print("图片URL: " + path);
                             System.out.print("是否添加成功: " + save + "\n");
                         }catch (Exception e){
                             System.out.print("图片URL: " + path);
                             System.out.print("是否添加成功: " + false + "\n");
                         }
-                    }else {
+                    }else { //URL
                         Img img = ImgUtils.newImgByUrl(path);
                         try{ //可能会添加失败,这里try为了对下面的继续进行添加
+                            //保存到数据库
                             boolean save = imgService.save(img);
+                            //写入缓存
+                            imgCache.addNewCache(img.getId().toString(),img.getScale().toString());
                             System.out.print("图片URL: " + path);
                             System.out.print("是否添加成功: " + save + "\n");
                         }catch (Exception e){
@@ -122,7 +137,12 @@ public class AddController {
         }
     }
 
-    private void getBySrc(String src){
+    /**
+     * 扫描目录下的图片
+     *
+     * @param src 文件夹路径
+     */
+    public void addBySrc(String src){
         File files = new File(src);
         File[] array = files.listFiles();
         for (File file : array) {
@@ -141,7 +161,10 @@ public class AddController {
                     //执行添加
                     ImgFile imgFile = ImgUtils.newImgByFile(file);
                     try{ //可能会添加失败,这里try为了对下面的继续进行添加
+                        //添加到数据库
                         boolean save = imgFileService.save(imgFile);
+                        //写入缓存
+                        imgFileCache.addNewCache(imgFile.getId().toString(),imgFile.getScale().toString());
                         System.out.print("图片URL: " + path);
                         System.out.print("是否添加成功: " + save + "\n");
                     }catch (Exception e){

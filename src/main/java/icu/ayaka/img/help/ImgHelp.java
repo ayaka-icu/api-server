@@ -1,7 +1,7 @@
 package icu.ayaka.img.help;
 
 
-import icu.ayaka.img.constants.ApiConstants;
+import icu.ayaka.constants.ApiConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

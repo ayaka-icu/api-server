@@ -1,6 +1,7 @@
 package icu.ayaka.img.controller;
 
 
+import icu.ayaka.img.cache.ImgFileCache;
 import icu.ayaka.img.service.IImgFileService;
 import icu.ayaka.img.utils.ImgUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,35 +30,30 @@ public class ImgFileController {
     @Autowired
     IImgFileService imgFileService;
 
+    @Autowired
+    ImgFileCache imgFileCache;
+
     @GetMapping("/file.io")
     public void get(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili,HttpServletResponse response){
-        //从数据库中查询
-        String path = null;
-        if ("1".equals(bili)){
-            path = imgFileService.getRandom().getPath();
-        }
-        if ("2".equals(bili)){
-            path = imgFileService.getRandom2().getPath();
-        }
-        //从路径中获取图片流
-        if (!ObjectUtils.isEmpty(path)){
+        String randomID = imgFileCache.getRandomID(bili);
+        if (!ObjectUtils.isEmpty(randomID)){
+            String path = imgFileService.getById(randomID).getPath();
+            //从路径中获取图片流
             ImgUtils.respLocalImg(path,response);
         }
     }
+    //http://localhost:8060/img/file.io
 
     @GetMapping("/file/json")
     @ResponseBody
     public String get(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili){
-        //从数据库中查询
-        if ("1".equals(bili)){
-            return imgFileService.getRandom().getJson();
+        String randomID = imgFileCache.getRandomID(bili);
+        if (!ObjectUtils.isEmpty(randomID)){
+            return imgFileService.getById(randomID).getJson();
         }
-        if ("2".equals(bili)){
-            return imgFileService.getRandom2().getJson();
-        }
-        return imgFileService.getRandom().getJson();
+        return "输出出错,请重试。";
     }
-
+    //http://localhost:8060/img/file/json
 
 }
 

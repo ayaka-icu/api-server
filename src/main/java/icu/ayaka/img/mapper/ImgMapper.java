@@ -16,10 +16,4 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ImgMapper extends BaseMapper<Img> {
 
-    @Select("SELECT * FROM tb_img WHERE scale=1 ORDER BY RAND() LIMIT 1;")
-    Img getRandom();
-
-    @Select("SELECT * FROM tb_img WHERE scale=2 ORDER BY RAND() LIMIT 1;")
-    Img getRandom2();
-
 }

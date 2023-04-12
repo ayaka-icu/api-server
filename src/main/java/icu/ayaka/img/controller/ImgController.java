@@ -1,16 +1,16 @@
 package icu.ayaka.img.controller;
 
-import icu.ayaka.img.constants.ApiConstants;
+import icu.ayaka.img.cache.ImgCache;
 import icu.ayaka.img.service.IImgService;
 import icu.ayaka.img.utils.ImgUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Random;
 
 
 /**
@@ -26,10 +26,10 @@ import java.util.Random;
 public class ImgController {
 
     @Autowired
-    private ApiConstants apiConstants;
+    private IImgService imgService;
 
     @Autowired
-    private IImgService imgService;
+    private ImgCache imgCache;
 
     /**
      * 获取随机图片 Url
@@ -37,32 +37,30 @@ public class ImgController {
      */
     @GetMapping("/url")
     public String random(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili){
-
-        if ("1".equals(bili)){
-            return "redirect:" + imgService.getRandom().getUrl();
-        }
-        if ("2".equals(bili)){
-            return "redirect:" + imgService.getRandom2().getUrl();
+        String randomID = imgCache.getRandomID(bili);
+        if (!ObjectUtils.isEmpty(randomID)){
+            return "redirect:" +  imgService.getById(randomID).getUrl();
         }
         return "redirect:" + "/static/404.jpg";
     }
+    //Test: http://localhost:8060/img/url?bili=3
+
 
     /**
      * 获取随机图片 Url
+     *
      * @return 随机图片 URL
      */
     @GetMapping("/url.io")
     public void random2(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili,HttpServletResponse response){
-
-        if ("1".equals(bili)){
-            String s = imgService.getRandom().getUrl();
-            ImgUtils.respUrlImg(s,response);
-        }
-        if ("2".equals(bili)){
-            String s = imgService.getRandom2().getUrl();
+        String randomID = imgCache.getRandomID(bili);
+        if (!ObjectUtils.isEmpty(randomID)){
+            String s = imgService.getById(randomID).getUrl();
             ImgUtils.respUrlImg(s,response);
         }
     }
+    //Test: http://localhost:8060/img/url.io
+    //Test: http://localhost:8060/img/url.io?bili=3
 
     /**
      * 获取随机图片 JSON
@@ -71,18 +69,13 @@ public class ImgController {
     @GetMapping("/url/json")
     @ResponseBody
     public String randomJson(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili){
-        if ("1".equals(bili)){
-            return imgService.getRandom().getJson();
-        }
-        if ("2".equals(bili)){
-            return imgService.getRandom2().getJson();
+        String randomID = imgCache.getRandomID(bili);
+        if (!ObjectUtils.isEmpty(randomID)){
+            return imgService.getById(randomID).getJson();
         }
         return "输出出错,请重试。";
     }
+    //Test: http://localhost:8060/img/url/json
 
-    @GetMapping(value = "/getImg/{src}")
-    public void getImg(@PathVariable("src")String src, HttpServletResponse resp) throws IOException {
-        ImgUtils.respUrlImg(src,resp);
-    }
 
 }

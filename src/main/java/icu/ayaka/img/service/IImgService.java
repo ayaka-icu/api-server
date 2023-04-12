@@ -13,10 +13,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IImgService extends IService<Img> {
 
-    Img getRandom();
-
-    Img getRandom2();
-
-
-
 }

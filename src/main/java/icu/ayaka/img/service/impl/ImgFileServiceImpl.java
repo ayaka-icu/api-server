@@ -17,13 +17,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImgFileServiceImpl extends ServiceImpl<ImgFileMapper, ImgFile> implements IImgFileService {
 
-    @Override
-    public ImgFile getRandom() {
-        return getBaseMapper().getRandom();
-    }
-
-    @Override
-    public ImgFile getRandom2() {
-        return getBaseMapper().getRandom2();
-    }
 }
