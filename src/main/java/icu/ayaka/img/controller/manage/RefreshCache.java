@@ -4,9 +4,13 @@ import icu.ayaka.constants.ApiConstants;
 import icu.ayaka.img.cache.ImgCache;
 import icu.ayaka.img.cache.ImgFileCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 这里除了调用
+ * 应该使用任务进行定时刷新缓存，写入很少，大多数情况下，缓存是与数据库同步的，但是要做兜底
+ *
+ */
 @RestController
 @RequestMapping("/img")
 public class RefreshCache {
@@ -29,7 +33,7 @@ public class RefreshCache {
             return "你没有权限!";
         }
         Long all = imgCache.addAll();
-        return all > 0 ? "缓存刷新成功！" + "共写入缓存: " + all + " 条数据" : "刷新失败!";
+        return all > 0 ? "缓存刷新成功！共写入缓存: " + all + " 条数据" : "刷新失败!";
     }
 
 
@@ -44,7 +48,7 @@ public class RefreshCache {
             return "你没有权限!";
         }
         Long all = imgFileCache.addAll();
-        return all > 0 ? "缓存刷新成功！" + "共写入缓存: " + all + " 条数据" : "刷新失败!";
+        return all > 0 ? "缓存刷新成功！共写入缓存: " + all + " 条数据" : "刷新失败!";
     }
 
 }

@@ -8,8 +8,6 @@ import icu.ayaka.img.entity.ImgFile;
 import icu.ayaka.img.service.IImgFileService;
 import icu.ayaka.img.service.IImgService;
 import icu.ayaka.img.utils.ImgUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
