@@ -20,7 +20,7 @@ public class CacheTask {
      * 每 凌晨 3点 对缓存进行刷新
      * 应该使用任务进行定时刷新缓存，写入很少，大多数情况下，缓存是与数据库同步的，但是要做兜底
      */
-    @Scheduled(cron = "0 0 3 * * ?")
+    @Scheduled(cron = "0 0 3 * * ?") //TODO: 加入到配置文件，自定义cron表达式
     public void cacheTask() {
 
         log.info("================= 凌晨3点 开始执行图片缓存刷新任务！ =================");
