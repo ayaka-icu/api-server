@@ -74,7 +74,7 @@ public class ImgFileCache {
 
 
     /**
-     * 添加一天缓存
+     * 添加一条缓存
      * @param id id
      * @param scale scale
      */
