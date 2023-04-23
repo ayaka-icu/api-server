@@ -312,8 +312,8 @@ GET: /img/count?num=123
     - `num > max` 时，跟随num大小：`max = num`
 - 📌示例1：[http://api.ayaka.icu/img/count?num=789](http://api.ayaka.icu/img/count?num=789)
 - 🪄效果1：![](http://api.ayaka.icu/img/count?num=789)
-- 📌示例2：[http://api.ayaka.icu/img/count?num=123456&max=8](http://api.ayaka.icu/img/countt?num=123456&max=8)
-- 🪄效果2：![](http://api.ayaka.icu/img/count?num=789&max=8)
+- 📌示例2：[http://api.ayaka.icu/img/count?num=123456&max=8](http://api.ayaka.icu/img/count?num=123456&max=8)
+- 🪄效果2：![](http://api.ayaka.icu/img/count?num=123456&max=8)
 - 📌示例3：[http://api.ayaka.icu/img/count?num=87654321](http://api.ayaka.icu/img/count?num=87654321)
 - 🪄效果3：![](http://api.ayaka.icu/img/count?num=87654321)
 - 注意：
