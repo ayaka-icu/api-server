@@ -49,12 +49,12 @@ public class CountController {
         return this.imgCreate(array);
     }
 
-    /**
+   /* *//**
      * 初始化创建 github 用户访问量
      * @param user  github用户名
      * @param init  初始化访问数量
      * @return  String
-     */
+     *//*
     @GetMapping("/github/create/{user}")
     @ResponseBody
     public String githubCreate(@PathVariable("user") String user,
@@ -79,12 +79,12 @@ public class CountController {
         return "添加成功，初始访问量:" + init;
     }
 
-    /**
+    *//**
      * github访问计数 +1 并返回一张计数图片
      * @param user  github名称
      * @param max   位数格式 默认为6
      * @return  计数图片
-     */
+     *//*
     @GetMapping("/github/{user}")
     @ResponseBody
     public ResponseEntity<byte[]> github(@PathVariable("user") String user,
@@ -105,7 +105,7 @@ public class CountController {
         }
         //char -> 图片 -> response封装
         return this.imgCreate(array);
-    }
+    }*/
 
 
 
