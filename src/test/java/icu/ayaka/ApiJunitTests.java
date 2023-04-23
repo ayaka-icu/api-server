@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.function.LongPredicate;
 
 public class ApiJunitTests {
 
@@ -36,17 +37,33 @@ public class ApiJunitTests {
 
     @Test
     public void me03Test(){
-
+        String s1 = null;
+        String s2 = "123";
+        Long aLong = Long.valueOf(s1);
+        Long aLong1 = Long.valueOf(s2);
+        System.out.println(aLong);
+        System.out.println(aLong1);
+        Long a = aLong1 + aLong;
+        System.out.println(a);
     }
 
     @Test
     public void me04Test(){
-
+        String s1 = null;
+        String s2 = "123";
+        System.out.println(Long.parseLong(s1));
+        System.out.println(Long.parseLong(s2));
+        System.out.println(Long.parseLong(s1) + Long.parseLong(s2));
     }
 
     @Test
     public void me05Test(){
-
+        System.out.println("ganga".matches("^[1-9]\\d*$"));
+        System.out.println("123".matches("^[1-9]\\d*$"));
+        System.out.println("0123".matches("^[1-9]\\d*$"));
+        System.out.println("-123".matches("^[1-9]\\d*$"));
+        System.out.println("321.123".matches("^[1-9]\\d*$"));
+        System.out.println("-123.23".matches("^[1-9]\\d*$"));
     }
 
 }

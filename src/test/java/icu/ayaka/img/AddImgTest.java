@@ -1,6 +1,8 @@
 package icu.ayaka.img;
 
 import icu.ayaka.ApiApplication;
+import icu.ayaka.constants.ApiConstants;
+import icu.ayaka.img.controller.manage.AddController;
 import icu.ayaka.img.entity.Img;
 import icu.ayaka.img.entity.ImgFile;
 import icu.ayaka.img.service.IImgFileService;
@@ -20,13 +22,70 @@ public class AddImgTest {
 
     @Autowired
     private IImgService imgService;
-
     @Autowired
     private IImgFileService imgFileService;
+    @Autowired
+    private AddController addController;
+    @Autowired
+    private ApiConstants apiConstants;
 
 
-    //private final String PATH_URL = "D:\\AppCode\\GitHub\\api-server\\api-img\\src\\main\\resources\\img\\cat.txt";
-    private final String PATH_URL = "D:\\AppCode\\GitHub\\api-server\\api-img\\src\\main\\resources\\img\\eva-cos.txt";
+    @Test
+    public void addLocalBySrcTest(){
+        //要是api-server服务器上的目录
+        //非服务段无法测试
+        String src = "";
+        String s = addController.addLocalBySrc(src, apiConstants.auth);
+        System.out.println(s);
+    }
+
+    @Test
+    public void addLocalByFileTest(){
+        //非服务段无法测试
+        String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-local.txt";
+        String s = addController.addLocalByFile(file, apiConstants.auth);
+        System.out.println(s);
+    }
+
+
+    @Test
+    public void addUrlTest(){
+        //支持本地测试上次
+        //String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url1.txt";
+        String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url2.txt";
+        String s = addController.addUrlByFile(file, apiConstants.auth);
+        System.out.println(s);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //===============================================================================================================
+
+
+
+
+    //private final String PATH_URL = "D:\\AppCode\\GitHub\\api-server\\api-img\\src\\main\\resources\\img\\test-url2.txt";
+    private final String PATH_URL = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url1.txt";
 
     @Test
     public void addTextUrl() {

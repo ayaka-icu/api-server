@@ -1,177 +1,92 @@
 package icu.ayaka.img.controller.manage;
 
 import icu.ayaka.constants.ApiConstants;
-import icu.ayaka.img.cache.ImgCache;
-import icu.ayaka.img.cache.ImgFileCache;
-import icu.ayaka.img.entity.Img;
-import icu.ayaka.img.entity.ImgFile;
-import icu.ayaka.img.service.IImgFileService;
-import icu.ayaka.img.service.IImgService;
-import icu.ayaka.img.utils.ImgUtils;
+import icu.ayaka.img.utils.AddImgUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/img/add")
 public class AddController {
 
     //依赖注入:
-    private final IImgService imgService;
-    private final IImgFileService imgFileService;
-    private final ApiConstants apiConstants;
-    private final ImgCache imgCache;
-    private final ImgFileCache imgFileCache;
-    public AddController(IImgService imgService, IImgFileService imgFileService, ApiConstants apiConstants, ImgCache imgCache, ImgFileCache imgFileCache) {
-        this.imgService = imgService;
-        this.imgFileService = imgFileService;
-        this.apiConstants = apiConstants;
-        this.imgCache = imgCache;
-        this.imgFileCache = imgFileCache;
-    }
+    @Autowired
+    private ApiConstants apiConstants;
 
-
-    @PostMapping("/file/local")
-    public String me(@RequestParam(value = "path",required = false) String pathParam,
-                     @RequestBody String auth){
-        if (!apiConstants.auth.equals(auth)){
-            return "你没有权限!";
-        }
-        if (ObjectUtils.isEmpty(pathParam)){
-            pathParam = apiConstants.absolutePath;
-        }
-        this.addByFile(pathParam,true);
-        return "添加成功";
-    }
-
-    @PostMapping("/src/local")
-    public String me2(@RequestParam(value = "path",required = false) String pathParam,
-                     @RequestBody String auth){
-        if (!apiConstants.auth.equals(auth)){
-            return "你没有权限!";
-        }
-        this.addBySrc(pathParam);
-        return "添加成功";
-    }
-
-    @PostMapping("/file/url")
-    public String me3(@RequestParam(value = "path",required = false) String pathParam,
-                     @RequestBody String auth){
-        if (!apiConstants.auth.equals(auth)){
-            return "你没有权限!";
-        }
-        if (ObjectUtils.isEmpty(pathParam)){
-            pathParam = apiConstants.absolutePath;
-        }
-        this.addByFile(pathParam,false);
-        return "添加成功";
-    }
-
-    // ==========================================================
+    @Autowired
+    private AddImgUtils addImgUtils;
 
     /**
-     * 封装
-     * @param pathParam 路径
-     * @param isLocal 是否为本地
-     */
-    public void addByFile(String pathParam,boolean isLocal){
-        //创建字符缓冲流
-        BufferedReader br = null;
-
-        try {
-            //赋值路径对象
-            br = new BufferedReader(new FileReader(pathParam));
-            //单行路径
-            String path;
-            while ((path = br.readLine()) != null) {
-                if (!"".equals(path)) {
-                    //根据路径获取图片对象
-                    //写入数据库
-                    if (isLocal){ //本地
-                        ImgFile imgFile = ImgUtils.newImgByFile(new File(path));
-                        try{
-                            //保存到数据库
-                            boolean save = imgFileService.save(imgFile);
-                            //写入缓存
-                            imgFileCache.addNewCache(imgFile.getId().toString(),imgFile.getScale().toString());
-                            System.out.print("图片URL: " + path);
-                            System.out.print("是否添加成功: " + save + "\n");
-                        }catch (Exception e){
-                            System.out.print("图片URL: " + path);
-                            System.out.print("是否添加成功: " + false + "\n");
-                        }
-                    }else { //URL
-                        Img img = ImgUtils.newImgByUrl(path);
-                        try{ //可能会添加失败,这里try为了对下面的继续进行添加
-                            //保存到数据库
-                            boolean save = imgService.save(img);
-                            //写入缓存
-                            imgCache.addNewCache(img.getId().toString(),img.getScale().toString());
-                            System.out.print("图片URL: " + path);
-                            System.out.print("是否添加成功: " + save + "\n");
-                        }catch (Exception e){
-                            System.out.print("图片URL: " + path);
-                            System.out.print("是否添加成功: " + false + "\n");
-                        }
-                    }
-
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();//释放资源
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
-     * 扫描目录下的图片
+     * <h1>添加本地图片 方式一                       </h1><br>
      *
-     * @param src 文件夹路径
+     * <h2>扫描 [指定文件路径] 下所有图片添加到 [本地图片]             </h2>
+     * <h2>会对指定文件路径下的文件进行图片判断               </h2>
+     *
+     * @param pathParam 文件路径
+     * @param auth 认证
+     * @return 结果
      */
-    public void addBySrc(String src){
-        File files = new File(src);
-        File[] array = files.listFiles();
-        for (File file : array) {
-            String path = file.getPath();
-            System.out.println(path);
-            //判断是否为不为目录
-            if (file.isFile()) {
-                //判断格式是否正确
-                String sup = null;
-                if (path.lastIndexOf(".") != -1) {
-                    sup = path.substring(path.lastIndexOf(".") + 1);
-                }// jpg tiff jpeg png gif bmp svg ico swf webp
-                if ("jpg".equals(sup) || "tiff".equals(sup) || "jpeg".equals(sup) || "png".equals(sup) ||
-                        "gif".equals(sup) || "bmp".equals(sup) || "svg".equals(sup) || "ico".equals(sup) ||
-                        "swf".equals(sup) || "webp".equals(sup)) {
-                    //执行添加
-                    ImgFile imgFile = ImgUtils.newImgByFile(file);
-                    try{ //可能会添加失败,这里try为了对下面的继续进行添加
-                        //添加到数据库
-                        boolean save = imgFileService.save(imgFile);
-                        //写入缓存
-                        imgFileCache.addNewCache(imgFile.getId().toString(),imgFile.getScale().toString());
-                        System.out.print("图片URL: " + path);
-                        System.out.print("是否添加成功: " + save + "\n");
-                    }catch (Exception e){
-                        System.out.print("图片URL: " + path);
-                        System.out.print("是否添加成功: " + false + "\n");
-                    }
-                }
-            }
+    @PostMapping("/src/local")
+    public String addLocalBySrc(@RequestParam(value = "path",required = false) String pathParam,
+                                @RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
         }
+        addImgUtils.runAddBySrc(pathParam);
+        return "添加成功";
+    }
+
+
+    /**
+     * <h1>添加本地图片 方式二                      </h1><br>
+     *
+     * <h2>根据 [指定文件] 添加到 [本地图片]
+     * <h2>这个文件里的每行数据对应 服务器图片路径
+     * <h2> 见 \test\resources\img\test-local.txt 文件
+     *
+     * @param pathParam 文件路径
+     * @param auth 认证
+     * @return 结果
+     */
+    @PostMapping("/file/local")
+    public String addLocalByFile(@RequestParam(value = "path",required = false) String pathParam,
+                     @RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        if (ObjectUtils.isEmpty(pathParam)){
+            pathParam = apiConstants.absolutePath;
+        }
+        addImgUtils.runAddByFile(pathParam,true);
+        return "添加成功";
+    }
+
+
+    /**
+     * <h1>添加外部 URL 图片                             </h1><br>
+     *
+     * <h2>扫描指定文件夹下图片 添加到 [本地图片]            </h2><br>
+     *
+     * <h2>这个文件里的每行数据对应 图片url路径             </h2><br>
+     * <h2>见 \test\resources\img\test-url.txt 文件    </h2><br>
+     * <h2>和 \test\resources\img\test-url2.txt 文件   </h2><br>
+     *
+     * @param pathParam 文件路径
+     * @param auth 认证
+     * @return 结果
+     */
+    @PostMapping("/file/url")
+    public String addUrlByFile(@RequestParam(value = "path",required = false) String pathParam,
+                     @RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        if (ObjectUtils.isEmpty(pathParam)){
+            pathParam = apiConstants.absolutePath;
+        }
+        addImgUtils.runAddByFile(pathParam,false);
+        return "添加成功";
     }
 
 }

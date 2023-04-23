@@ -23,7 +23,25 @@ public class RefreshCache {
     ApiConstants apiConstants;
 
     /**
+     * 刷新 所有缓存
+     *
+     * @param auth 认证
+     * @return log
+     */
+    @PostMapping("/cache/all")
+    public String cacheAll(@RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        Long t1 = imgCache.addAll();
+        Long t2 = imgFileCache.addAll();
+        long sum = (t1 == null ? 0L : t1) + (t2 == null ? 0L : t2);
+        return sum > 0L ? "缓存刷新成功！共写入缓存: " + sum + " 条数据" : "刷新失败!";
+    }
+
+    /**
      * 刷新 url库 缓存
+     * 注意: 这个过程已经创建了条数
      * @param auth 认证
      * @return log
      */
@@ -39,6 +57,7 @@ public class RefreshCache {
 
     /**
      * 刷新 file 库 缓存
+     * 注意: 这个过程已经创建了条数
      * @param auth 认证
      * @return log
      */
@@ -49,6 +68,51 @@ public class RefreshCache {
         }
         Long all = imgFileCache.addAll();
         return all > 0 ? "缓存刷新成功！共写入缓存: " + all + " 条数据" : "刷新失败!";
+    }
+
+
+    /**
+     * 单独刷新 所有 图片条数
+     * @param auth 认证
+     * @return size
+     */
+    @PostMapping("/cache/size")
+    public String cacheSize(@RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        long t1 = imgCache.refreshSize();
+        long t2 = imgFileCache.refreshSize();
+        long sum = t1 + t2;
+        return sum > 0 ? "缓存刷新成功！所有图片条数: " + sum + " 条数据" : "刷新失败!";
+    }
+
+    /**
+     * 单独刷新 url库 图片条数
+     * @param auth 认证
+     * @return size
+     */
+    @PostMapping("/cache/url/size")
+    public String cacheUrlSize(@RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        long size = imgCache.refreshSize();
+        return size > 0 ? "缓存刷新成功！Url库图片条数: " + size + " 条数据" : "刷新失败!";
+    }
+
+    /**
+     * 单独刷新 File库 图片条数
+     * @param auth 认证
+     * @return size
+     */
+    @PostMapping("/cache/file/size")
+    public String cacheFileSize(@RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        long size = imgFileCache.refreshSize();
+        return size > 0 ? "缓存刷新成功！File库图片条数: " + size + " 条数据" : "刷新失败!";
     }
 
 }

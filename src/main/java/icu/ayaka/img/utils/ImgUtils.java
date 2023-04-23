@@ -5,6 +5,7 @@ import icu.ayaka.img.dto.ImgFileDto;
 import icu.ayaka.img.entity.Img;
 import icu.ayaka.img.dto.ImgDto;
 import icu.ayaka.img.entity.ImgFile;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+@Slf4j
 public class ImgUtils {
 
 
@@ -31,10 +33,10 @@ public class ImgUtils {
      */
     public static ImgFile newImgByFile(File file) {
 
-        BufferedImage sourceImg = null;
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
+        BufferedImage sourceImg;
+
+        try(FileInputStream fileInputStream = new FileInputStream(file)) {
+
             sourceImg = ImageIO.read(fileInputStream);
             ImgFile imgFile = new ImgFile();
             //路径
@@ -69,14 +71,6 @@ public class ImgUtils {
             return imgFile;
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -155,8 +149,7 @@ public class ImgUtils {
                 //ImageIO.write(bufferedImage,format,response.getOutputStream());// 将文件流放入response中
             }
         } catch (Exception e) {
-            System.out.println("图片异常" + e);
-            System.out.println("参数异常" + url);
+            log.debug("图片异常: {} , 参数URL异常: {}",e,url);
         } finally {
             if (inputStream != null) {
                 try {
@@ -184,23 +177,14 @@ public class ImgUtils {
      * @param resp 响应体
      */
     public static void respLocalImg(String path, HttpServletResponse resp) {
-        InputStream in = null;
-        try {
+
+        try (InputStream in = new FileInputStream(path);){
             //生产流对象
-            in = new FileInputStream(new File(path));
             //写入Response
             resp.setContentType(MediaType.IMAGE_PNG_VALUE);
             IOUtils.copy(in, resp.getOutputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -213,9 +197,8 @@ public class ImgUtils {
      */
     public static void respUrlImg(String url, HttpServletResponse resp) {
 
-        String str1 = "http";
-        boolean b = url.contains(str1);
-        if (b == false) {
+        boolean b = url.contains("http");
+        if (!b) {
             //判断是否是网络图片的url
             url = "http://*****:8080/" + url;
         }

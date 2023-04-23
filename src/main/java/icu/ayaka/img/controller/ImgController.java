@@ -31,6 +31,18 @@ public class ImgController {
     @Autowired
     private ImgCache imgCache;
 
+    @GetMapping("/url/size/num")
+    @ResponseBody
+    public String size(){
+        return imgCache.size();
+    }
+
+    @GetMapping("/url/size")
+    public String sizeImg(){
+        int num = Integer.parseInt(imgCache.size());
+        return "forward:" + "/img/count?num="+ num;
+    }
+
     /**
      * 获取随机图片 Url
      * @return 随机图片 URL

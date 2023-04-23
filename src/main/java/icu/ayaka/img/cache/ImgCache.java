@@ -21,8 +21,30 @@ public class ImgCache {
     private IImgService imgService;
 
     /**
+     * 获取 url 库中链接个数
+     * @return 链接个数
+     */
+    public String size(){
+        return redisTemplate.opsForValue().get(CACHE_API_IMG_URL_SIZE);
+    }
+
+    /**
+     * 刷新 / 创建 条数
+     * @return Url 条数
+     */
+    public long refreshSize(){
+        Long s1 = redisTemplate.opsForSet().size(CACHE_API_IMG_URL_SCALE1);
+        Long s2 = redisTemplate.opsForSet().size(CACHE_API_IMG_URL_SCALE2);
+        Long s3 = redisTemplate.opsForSet().size(CACHE_API_IMG_URL_SCALE3);
+        long sum = (s1 == null ? 0 : s1) + (s2 == null ? 0 : s2) + (s3 == null ? 0 : s3);
+        redisTemplate.opsForValue().set(CACHE_API_IMG_URL_SIZE, Long.toString(sum));
+        return sum;
+    }
+
+    /**
      * 删除缓存 并 重建缓存
      * 获取数据库 tb_img 中 所有记录 进行建立缓存
+     * 注意: 这个过程已经创建了条数
      *
      * @return 添加条数
      */
@@ -39,14 +61,20 @@ public class ImgCache {
         for (Img img : list) {
             Integer id = img.getId();
             Integer scale = img.getScale();
-            if (SCALE_ONE.equals(scale.toString())) {
-                total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE1, id.toString());
-            } else if (SCALE_TWO.equals(scale.toString())) {
-                total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE2, id.toString());
-            } else if (SCALE_THREE.equals(scale.toString())){
-                total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE3, id.toString());
+            switch (scale.toString()) {
+                case SCALE_ONE:
+                    total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE1, id.toString());
+                    break;
+                case SCALE_TWO:
+                    total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE2, id.toString());
+                    break;
+                case SCALE_THREE:
+                    total += redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE3, id.toString());
+                    break;
             }
         }
+        //添加 url 个数
+        redisTemplate.opsForValue().set(CACHE_API_IMG_URL_SIZE,total.toString());
 
         //返回条数
         return total;
@@ -84,6 +112,7 @@ public class ImgCache {
         } else if (SCALE_THREE.equals(scale)) {
             redisTemplate.opsForSet().add(CACHE_API_IMG_URL_SCALE3,id);
         }
+        redisTemplate.opsForValue().increment(CACHE_API_IMG_URL_SIZE);
     }
 
 }

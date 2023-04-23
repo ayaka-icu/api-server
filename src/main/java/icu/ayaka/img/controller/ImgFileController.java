@@ -33,6 +33,18 @@ public class ImgFileController {
     @Autowired
     ImgFileCache imgFileCache;
 
+    @GetMapping("/file/size/num")
+    @ResponseBody
+    public String size(){
+        return imgFileCache.size();
+    }
+
+    @GetMapping("/file/size")
+    public String sizeImg(){
+        int num = Integer.parseInt(imgFileCache.size());
+        return "forward:" + "/img/count?num="+ num;
+    }
+
     @GetMapping("/file.io")
     public void get(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili,HttpServletResponse response){
         String randomID = imgFileCache.getRandomID(bili);
