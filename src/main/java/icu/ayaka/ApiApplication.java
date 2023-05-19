@@ -7,7 +7,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-@MapperScan("icu.ayaka.img.mapper")
+@MapperScan({"icu.ayaka.img.mapper",
+             "icu.ayaka.login.mapper"})
 public class ApiApplication {
 
     public static void main(String[] args) {

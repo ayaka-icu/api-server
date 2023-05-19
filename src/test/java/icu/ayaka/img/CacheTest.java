@@ -1,6 +1,7 @@
 package icu.ayaka.img;
 
 import icu.ayaka.ApiApplication;
+import icu.ayaka.img.cache.AllCache;
 import icu.ayaka.img.cache.ImgCache;
 import icu.ayaka.img.cache.ImgFileCache;
 import icu.ayaka.img.entity.Img;
@@ -30,9 +31,14 @@ public class CacheTest {
     ImgFileCache imgFileCache;
 
     @Autowired
+    AllCache allCache;
+
+    @Autowired
     IImgService imgService;
     @Autowired
     IImgFileService imgFileService;
+    @Autowired
+    ImgUtils imgUtils;
 
     @Test
     public void addAllUrlTest(){
@@ -67,9 +73,17 @@ public class CacheTest {
     }
     @Test
     public void getTest(){
-        ImgFile imgFile = ImgUtils.newImgByFile(new File("D:\\desktop\\XXX\\XXX.jpg"));
+        ImgFile imgFile = imgUtils.newImgByFile(new File("D:\\desktop\\XXX\\XXX.jpg"));
         imgFileService.save(imgFile);
         System.out.println(imgFile.getId());
+    }
+
+    /**
+     * 所有 图片库 缓存
+     */
+    @Test
+    public void allTest(){
+        allCache.addAllCache();
     }
 
 }

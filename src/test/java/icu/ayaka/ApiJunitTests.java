@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.function.LongPredicate;
 
 public class ApiJunitTests {
@@ -64,6 +66,23 @@ public class ApiJunitTests {
         System.out.println("-123".matches("^[1-9]\\d*$"));
         System.out.println("321.123".matches("^[1-9]\\d*$"));
         System.out.println("-123.23".matches("^[1-9]\\d*$"));
+    }
+
+    @Test
+    public void me06Test(){
+        /*LocalDateTime now = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
+        System.out.println(now.toEpochSecond(ZoneOffset.UTC));
+        long N = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        System.out.println("N: " + N);
+        System.out.println("C: " + (N - 1672531200L));*/
+        System.out.println(10594526L << 1);
+        System.out.println(10594526L << 3);
+        System.out.println(10594526L << 1 | 10000);
+        System.out.println(10594526L << 2 | 10000);
+        System.out.println(10594526L << 3 | 10000);
+        System.out.println(10594526L << 3 | 200);
+        System.out.println(10594526L << 3 | 300);
+        System.out.println(60594526L << 3 | 1000);
     }
 
 }

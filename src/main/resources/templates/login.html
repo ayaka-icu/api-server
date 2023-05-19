@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link href="../static/css/log.css" rel="stylesheet">
+    <style>
+        html {
+            background: url('http://api.ayaka.icu/img/url') no-repeat fixed center center;background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="loginDiv">
+    <form id="form" th:action="@{/login/auth}" method="post">
+        <h1 id="loginMsg">LOGIN IN</h1>
+
+        <div id="errorMsg" th:text="${errorMsg}"></div>
+
+        <p>用户名:<input id="username" name="username" type="text" value=""></p>
+        <p>密码:<input id="password" name="password" type="password" value=""></p>
+        <p id="verify-p">验证码:
+            <input id="verify" name="code" type="text" value="">
+            <img id="verify-ico" alt="" th:src="@{/login/code.jpg}">
+
+        </p>
+        <div id="subDiv">
+            <input type="submit" class="button" value="login up">
+        </div>
+    </form>
+
+</div>
+
+<script>
+    // 宽度 < 高度
+    if (window.innerWidth < window.innerHeight) {
+        //设置竖屏壁纸
+        document.body.style.background = "url('http://api.ayaka.icu/img/url?bili=2') no-repeat fixed center center";
+        document.body.style.backgroundSize = "cover";
+        //toc-button位置
+        document.querySelector(".fixed-button").style.right = "1%"; //将right属性设置为20px
+    }
+</script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
-## 🏷️api-server
+## 🏷️api-server 
 
-
+访问地址：<a href="https://api.ayaka.icu">api.ayaka.icu</a>
 
 <h3>🏷️一个api工具集,多种丰富的api接口供你选择。</h3>
 
@@ -8,7 +8,7 @@
 
 <h3>🏷️实现模块:  还在开发中......</h3>
 
-- <h4>📌img-api &nbsp;&nbsp;&nbsp;&nbsp;🎨图片模块 ---  //以实现</h4> 
+- <h4>📌img-api &nbsp;&nbsp;&nbsp;&nbsp;🎨图片模块 ---  //已实现</h4> 
 - <h4>📌music-api 🎧音乐模块 ---  //开发中</h4> 
 - <h4>📌text-api &nbsp;&nbsp;&nbsp;&nbsp;📒文本模块 ---  //开发中</h4>
 - <h4>📌tool-api &nbsp;&nbsp;&nbsp;&nbsp;🗃️工具模块 ---  //开发中</h4>
@@ -90,7 +90,7 @@ GET: /img/url
 ```
 
 - 获取`url`库中数据随机一个图片，进行**重定向**。
-- 请求参数：`不必要`
+- 请求参数：`非必要`
   - `bili=` 默认为1，可选：`bili=1`、`bili=2`、`bili=3`
   - 不加请求参数为默认 `1`
     - `bili=1` ：横图
@@ -119,7 +119,7 @@ GET: /img/url.io
 ```
 
 - 获取`url`库中数据随机一个图片，进行**响应体返回**。
-- 请求参数：`不必要`
+- 请求参数：`非必要`
   - `bili=` 默认为1，可选：`bili=1`、`bili=2`、`bili=3`
   - 不加请求参数为默认 `1`
     - `bili=1` ：横图
@@ -174,7 +174,7 @@ GET: /img/file.io
 ```
 
 - 获取`file`库中数据随机一个图片，进行**响应体返回**。
-- 请求参数：`不必要`
+- 请求参数：`非必要`
   - `bili=` 默认为1，可选：`bili=1`、`bili=2`、`bili=3`
   - 不加请求参数为默认 `1`
     - `bili=1` ：横图
@@ -193,6 +193,32 @@ GET: /img/file.io
 
 
 
+
+
+
+### 获取两库中随机图片
+
+```
+GET: /img/all
+```
+
+- 获取`file`库和`url`库中数据随机一个图片，进行返回。
+- 请求参数：`非必要`
+  - `bili=` 默认为1，可选：`bili=1`、`bili=2`、`bili=3`
+  - 不加请求参数为默认 `1`
+    - `bili=1` ：横图
+    - `bili=2` ：竖图
+    - `bili=3` ：似正方形
+- 📌示例1：[https://api.ayaka.icu/img/all](https://api.ayaka.icu/img/all) 获取数据一张横图图片
+- 📌示例2：[https://api.ayaka.icu/img/all?bili=2](https://api.ayaka.icu/img/all?bili=2) 获取数据一张横图图片
+
+
+
+<br>
+
+---
+
+<br>
 
 
 
@@ -263,7 +289,6 @@ GET: /icons?i=icon1,icon2,icon3
     - `2` 为明亮色
   - `size`：每行最多多少个图片，超过自动分行
     - 默认为`15`
-  - 每个路径以**`@@`**相隔
 - 📌示例1：[http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md](http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md) 
 - 🪄效果1：![](http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md)
 - 📌示例2：[http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md&theme=2](http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md&theme=2)

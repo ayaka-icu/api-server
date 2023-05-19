@@ -30,8 +30,8 @@ public class Img implements Serializable {
     /**
      * 唯一id
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id")
+    private Long id;
 
     /**
      * 图片路径

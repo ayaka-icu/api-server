@@ -28,6 +28,8 @@ public class AddImgTest {
     private AddController addController;
     @Autowired
     private ApiConstants apiConstants;
+    @Autowired
+    private ImgUtils imgUtils;
 
 
     @Test
@@ -51,8 +53,9 @@ public class AddImgTest {
     @Test
     public void addUrlTest(){
         //支持本地测试上次
-        //String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url1.txt";
-        String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url2.txt";
+        //String file.txt = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url1.txt";
+        //String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\test-url2.txt";
+        String file = "D:\\AppCode\\GitHub\\api-server\\src\\test\\resources\\img\\migrate\\url.txt";
         String s = addController.addUrlByFile(file, apiConstants.auth);
         System.out.println(s);
     }
@@ -100,7 +103,7 @@ public class AddImgTest {
             while ((path = br.readLine()) != null) {
                 if (!"".equals(path)) {
                     //根据路径获取图片对象
-                    Img img = ImgUtils.newImgByUrl(path);
+                    Img img = imgUtils.newImgByUrl(path);
                     //写入数据库
                     boolean save = imgService.save(img);
                     System.out.print("图片URL: " + path);
@@ -143,7 +146,7 @@ public class AddImgTest {
                         "swf".equals(sup) || "webp".equals(sup))
                 {
                     //执行添加
-                    ImgFile imgFile = ImgUtils.newImgByFile(file);
+                    ImgFile imgFile = imgUtils.newImgByFile(file);
                     imgFileService.save(imgFile);
                 }
             }

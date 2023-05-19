@@ -59,7 +59,7 @@ public class ImgCache {
         List<Img> list = imgService.list();
         Long total = 0L;
         for (Img img : list) {
-            Integer id = img.getId();
+            Long id = img.getId();
             Integer scale = img.getScale();
             switch (scale.toString()) {
                 case SCALE_ONE:

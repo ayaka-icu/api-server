@@ -7,22 +7,26 @@ import icu.ayaka.img.dto.ImgDto;
 import icu.ayaka.img.entity.ImgFile;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDateTime;
-import java.util.Random;
+
+import static icu.ayaka.constants.RedisConstants.API_IMG_ID_WORKER;
 
 @Slf4j
+@Component
 public class ImgUtils {
 
+    @Autowired
+    private RedisIdWorker redisIdWorker;
 
     /**
      * 向数据库中添加图片信息 <br>
@@ -31,7 +35,7 @@ public class ImgUtils {
      * @param file 文件
      * @return ImgFile
      */
-    public static ImgFile newImgByFile(File file) {
+    public ImgFile newImgByFile(File file) {
 
         BufferedImage sourceImg;
 
@@ -39,6 +43,8 @@ public class ImgUtils {
 
             sourceImg = ImageIO.read(fileInputStream);
             ImgFile imgFile = new ImgFile();
+            //id
+            imgFile.setId(redisIdWorker.nextId(API_IMG_ID_WORKER));
             //路径
             imgFile.setPath(file.getPath());
             //大小
@@ -82,11 +88,9 @@ public class ImgUtils {
      * @param url 图片URL
      * @return Img
      */
-    public static Img newImgByUrl(String url) {
+    public Img newImgByUrl(String url) {
 
-        String str1 = "http";
-        boolean b = url.contains(str1);
-        if (b == false) {
+        if (url.contains("http")) {
             //判断是否是网络图片的url
             url = "http://*****:8080/" + url;
         }
@@ -111,6 +115,8 @@ public class ImgUtils {
             if (sourceImg != null) {
 
                 Img img = new Img();
+                //id
+                img.setId(redisIdWorker.nextId(API_IMG_ID_WORKER));
                 //路径
                 img.setUrl(url);
                 //大小
@@ -208,8 +214,8 @@ public class ImgUtils {
             //创建链接对象
             URLConnection urlConnection = urlImg.openConnection();
             //设置超时
-            urlConnection.setConnectTimeout(1000);
-            urlConnection.setReadTimeout(5000);
+            urlConnection.setConnectTimeout(2000);
+            urlConnection.setReadTimeout(6000);
             urlConnection.connect();
             //获取流
             in = urlConnection.getInputStream();

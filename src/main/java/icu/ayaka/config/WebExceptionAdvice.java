@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice
+//@RestControllerAdvice //舍弃
 public class WebExceptionAdvice {
 
     @ExceptionHandler(RuntimeException.class)

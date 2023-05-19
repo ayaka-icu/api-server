@@ -1,0 +1,119 @@
+body{
+    font-family: 微软雅黑;
+    background: url("http://api.ayaka.icu/img/url") no-repeat fixed center center;
+    background-size: cover;
+}
+.bottom{
+    /*position: fixed;*/
+    height: 35px;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+    font-size: 18px;
+    color: #1098e1;
+    text-shadow: #000 1px 1px 1px;
+    margin-bottom: 10px;
+}
+.toc-button{
+    position: fixed;
+    height: 35px;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+    font-size: 18px;
+    color: #1098e1;
+    text-shadow: #000 1px 1px 1px;
+    margin-bottom: 10px;
+}
+.fixed-button {
+    display: inline-block;
+    padding: 1em 1em;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #00bba6;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease-in-out;
+
+
+    position: fixed;
+    height: 45px;
+    width: 100px;
+    top: 90%;
+    right: 3%;
+    transform: translateY(-50%);
+}
+
+.copy-button {
+    border-color: cornsilk;
+    background: url("../img/button.png") no-repeat center;
+    background-size: 70%;
+    border-style: hidden;
+    float: right;
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+}
+#p0{
+    color: #92278f;
+}
+.p1{
+    color: #0de816;
+    font-size: 23px;
+}
+pre{
+    color: #2196F3;
+    font-size: 18px;
+    font-family: 微软雅黑;
+    background: rgba(255, 255, 255, 0.55);
+    line-height: 30px;
+}
+.json_note{
+    color: #004CFF;
+    font-weight:bold;
+}
+.json_key{
+    color: #92278f;
+    font-weight:bold;
+}
+.json_null{
+    color: #f1592a;
+    font-weight:bold;
+}
+.json_string{
+    color: #3ab54a;
+    font-weight:bold;
+}
+.json_number{
+    color: #25aae2;
+    font-weight:bold;
+}
+.title{
+    text-shadow: rgb(0, 0, 0) 1px 1px 1px;font-size: 39px;color: #00CEFF;position: absolute;top: 3px;left: 61px;
+}
+.title-top{
+    color: #F100FF;
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translate(-50%, -20%);
+}
+.container{
+    position: relative;top: 13px;margin: 0 auto;
+}
+.well{
+    background: rgba(255, 255, 255, 0.58);text-shadow: #000 1px 1px 1px;color: #00F1FF;font-size: 20px;
+}
+.well a{
+    color: #e73fb2;font-size: 20px;
+}
+.well b {
+    color: #00c97e;
+    font-size: 50px;
+}

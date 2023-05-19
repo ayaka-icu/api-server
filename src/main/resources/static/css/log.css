@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    -moz-background-size: 100% 100%;
+
+    position:fixed;
+    top: 0;
+    left: 0;
+
+    min-width: 1000px;
+    z-index:-10;
+    zoom: 1;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+#loginDiv {
+    width: 37%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 390px;
+    background-color: rgba(75, 81, 95, 0.3);
+    box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+    border-radius: 5px;
+}
+
+#name_trip {
+    margin-left: 50px;
+    color: red;
+}
+
+p {
+    margin-top: 30px;
+    margin-left: 20px;
+    color: #14ffc2; /*字体*/
+    font-size: 22px;
+}
+#verify-p{
+    margin-top: 30px;
+    margin-left: 20px;
+    color: #14ffc2; /*字体*/
+    font-size: 22px;
+}
+
+#remember{
+    margin-left: 15px;
+    border-radius: 5px;
+    border-style: hidden;
+    background-color: rgb(5, 255, 209);
+    outline: none;
+    padding-left: 10px;
+    height: 20px;
+    width: 20px;
+}
+#username{
+    width: 200px;
+    margin-left: 15px;
+    border-radius: 5px;
+    border-style: hidden;
+    height: 30px;
+    background-color: rgba(216, 191, 216, 0.5);
+    outline: none;
+    color: #f0edf3;
+    padding-left: 10px;
+}
+#password{
+    width: 202px;
+    margin-left: 37px;
+    border-radius: 5px;
+    border-style: hidden;
+    height: 30px;
+    background-color: rgba(216, 191, 216, 0.5);
+    outline: none;
+    color: #f0edf3;
+    padding-left: 10px;
+}
+
+#verify{
+    width: 60px;
+    margin-left: 9px;
+    border-radius: 5px;
+    border-style: hidden;
+    height: 30px;
+    background-color: rgba(216, 191, 216, 0.5);
+    outline: none;
+    color: #f0edf3;
+    padding-left: 10px;
+}
+
+#verify-ico{
+    margin-left: 10px;
+    outline: none;
+    margin-top: -27px;
+    position: relative;
+    top: 19px;
+}
+
+.button {
+    border-color: cornsilk;
+    background-color: rgba(100, 149, 237, 0.85);
+    color: aliceblue;
+    border-style: hidden;
+    border-radius: 5px;
+    width: 100%;
+    height: 46px;
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+#subDiv {
+    text-align: center;
+    margin-top: 30px;
+}
+#loginMsg{
+    text-align: center;
+    color: aliceblue;
+}
+#logout{
+    text-align: center;
+    color: #ea079f;
+}
+#errorMsg{
+    text-align: center;
+    color:red;
+}

@@ -7,7 +7,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/img/add")
+@RequestMapping("/img/manage/add")
 public class AddController {
 
     //依赖注入:
@@ -16,6 +16,28 @@ public class AddController {
 
     @Autowired
     private AddImgUtils addImgUtils;
+
+    /**
+     * 单次添加图片路径
+     * @param src 图片路径
+     * @param type 添加类型: url / file
+     * @param auth 认证
+     * @return 结果
+     */
+    @PostMapping()
+    public String addURL(@RequestParam(value = "src") String src,
+                         @RequestParam(value = "type") String type,
+                         @RequestBody String auth){
+        if (!apiConstants.auth.equals(auth)){
+            return "你没有权限!";
+        }
+        if ("url".equals(type)){
+            return addImgUtils.runAdd(src,false);
+        }else if ("file".equals(type)){
+            return addImgUtils.runAdd(src,true);
+        }
+        return "添加错误，请选择正确的type = url 或 file";
+    }
 
     /**
      * <h1>添加本地图片 方式一                       </h1><br>
@@ -88,5 +110,4 @@ public class AddController {
         addImgUtils.runAddByFile(pathParam,false);
         return "添加成功";
     }
-
 }

@@ -1,6 +1,7 @@
 package icu.ayaka.img.controller.manage;
 
 import icu.ayaka.constants.ApiConstants;
+import icu.ayaka.img.cache.AllCache;
 import icu.ayaka.img.cache.ImgCache;
 import icu.ayaka.img.cache.ImgFileCache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,17 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 @RestController
-@RequestMapping("/img")
+@RequestMapping("/img/manage")
 public class RefreshCache {
 
     @Autowired
-    ImgCache imgCache;
+    private ImgCache imgCache;
     @Autowired
-    ImgFileCache imgFileCache;
+    private ImgFileCache imgFileCache;
     @Autowired
-    ApiConstants apiConstants;
+    private ApiConstants apiConstants;
+    @Autowired
+    private AllCache allCache;
 
     /**
      * 刷新 所有缓存
@@ -33,10 +36,8 @@ public class RefreshCache {
         if (!apiConstants.auth.equals(auth)){
             return "你没有权限!";
         }
-        Long t1 = imgCache.addAll();
-        Long t2 = imgFileCache.addAll();
-        long sum = (t1 == null ? 0L : t1) + (t2 == null ? 0L : t2);
-        return sum > 0L ? "缓存刷新成功！共写入缓存: " + sum + " 条数据" : "刷新失败!";
+        long t = allCache.addAllCache();
+        return t> 0L ? "缓存刷新成功！共写入缓存: " + t + " 条数据" : "刷新失败!";
     }
 
     /**

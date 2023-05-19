@@ -31,7 +31,7 @@ public class ImgFile implements Serializable {
      * 唯一id
      */
       @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
      * 图片文件路径

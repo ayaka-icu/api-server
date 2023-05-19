@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+    <title>API-二次元图片API</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/strap.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+
+<body style="background: url('http://api.ayaka.icu/img/url') no-repeat fixed center center;background-size: cover;">
+
+<div class="container">
+    <div class="well">
+
+        <!-- 标头 -->
+        <div>
+            <p class="title title-top">api.ayaka.icu 多功能图片API接口</p> <a href="/login"><span style="float: right;">后台登录</span></a>
+        </div><br><br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-- 收录 -->
+        <p>
+            <span style="float: left;">本站已收录图片数: <img src="https://api.ayaka.icu/img/size" alt=""></span>
+            <span style="float: right;">图片相关API数: <img src="https://api.ayaka.icu/img/count?num=11" alt=""></span><br>
+        </p><br>
+        <p>
+            <span style="float: left;">其中:  Url库收录数: <img src="https://api.ayaka.icu/img/url/size" alt=""></span>
+            <span style="float: right;">File库收录数: &nbsp;&nbsp;&nbsp;<img src="https://api.ayaka.icu/img/file/size" alt=""></span><br>
+        </p>
+
+        <br><img src="img/hr.gif" style="width: 100%" alt=""> <br>
+
+        <!-- 说明 -->
+        <br><p id="p0">本站分为两个库，即：外部链接库-url 和 内部文件库-file   <a href="/"><span style="float: right;">看不清的话尝试刷新哦~</span></a> </p>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br>
+
+        <!-- 目录 -->
+        <a name="doc"></a>
+
+        <h1 style="color: #3ab54a; text-align: center; font-size: 56px"><img src="img/toc-new.png" style="width: 96%;" alt="" ></h1><br>
+
+        <a href="#api1">API - <img src="https://api.ayaka.icu/img/count?num=1&max=2" alt="" width="80px"> - 随机从url库中获取随即一张图片 </a><br>
+        <a href="#api2">API - <img src="https://api.ayaka.icu/img/count?num=2&max=2" alt="" width="80px"> - 随机从url库中获取随即一张图片-响应体返回-性能弱于上面 </a><br>
+        <a href="#api3">API - <img src="https://api.ayaka.icu/img/count?num=3&max=2" alt="" width="80px"> - 随机从url库中获取随机图片 JSON 字符串</a><br>
+        <a href="#api4">API - <img src="https://api.ayaka.icu/img/count?num=4&max=2" alt="" width="80px"> - 随机从file库中获取随即一张图片-响应体返回</a><br>
+        <a href="#api5">API - <img src="https://api.ayaka.icu/img/count?num=5&max=2" alt="" width="80px"> - 随机从 [url库] 和 [file库] 中获取随即一张图片 🍡</a><br>
+        <h3>性能对比: <a href="#api1"><img src="https://api.ayaka.icu/img/count?num=1&max=2" alt="" width="80px"></a>
+            lim← <a href="#api4"><img src="https://api.ayaka.icu/img/count?num=4&max=2" alt="" width="80px"></a>
+            lim← <a href="#api5"><img src="https://api.ayaka.icu/img/count?num=5&max=2" alt="" width="80px"></a>
+            >> <a href="#api2"><img src="https://api.ayaka.icu/img/count?num=2&max=2" alt="" width="80px"></a>
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🌸&nbsp;&nbsp;&nbsp;lim←接近于  >> 远大于
+        </h3>
+
+        <hr>
+        <h3> </h3>
+        <a href="#api6">API - <img src="https://api.ayaka.icu/img/count?num=6&max=2" alt="" width="80px"> - 获取给定诺干の诺干URL-随机一个重定向</a><br>
+        <a href="#api7">API - <img src="https://api.ayaka.icu/img/count?num=7&max=2" alt="" width="80px"> - 获取给定诺干の诺干URL-随机一个响应体返回图片</a><br>
+        <a href="#api8">API - <img src="https://api.ayaka.icu/img/count?num=8&max=2" alt="" width="80px"> - 获取数字图片-图片计数器</a><br>
+        <a href="#api9">API - <img src="https://api.ayaka.icu/img/count?num=9&max=2" alt="" width="80px"> - 获取给定诺干个Icon名称，返回这些图标，转发</a><br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+        
+        <!-------- API - 01 -------->
+        <a name="api1"></a>
+        <p class="p1">API-<img src="https://api.ayaka.icu/img/count?num=1&max=2" alt="">-随机从url库中获取随即一张图片</p>
+        <pre class="copyText">https://api.ayaka.icu/img/url <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//非必要参数, 不写默认为 bili=1
+bili=1 : 横图
+bili=2 : 竖图
+bili=3 : 类似正方形 (较少)</pre>
+        <p>示例1：</p>
+        <a href="https://api.ayaka.icu/img/url"><pre>https://api.ayaka.icu/img/url</pre></a>
+        <p>示例2：</p>
+        <a href="https://api.ayaka.icu/img/url?bili=2"><pre>https://api.ayaka.icu/img/url?bili=2</pre></a>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 02 -------->
+        <a name="api2"></a>
+        <p class="p1">API-<img src="https://api.ayaka.icu/img/count?num=2&max=2" alt="">-随机从url库中获取随即一张图片-响应体返回-性能弱于上面</p>
+        <pre  class="copyText">https://api.ayaka.icu/img/url.io <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//非必要参数, 不写默认为 bili=1
+bili=1 : 横图
+bili=2 : 竖图
+bili=3 : 类似正方形 (较少)</pre>
+        <p>示例1：</p>
+        <a href="https://api.ayaka.icu/img/url.io"><pre>https://api.ayaka.icu/img/url.io</pre></a>
+        <p>示例2：</p>
+        <a href="https://api.ayaka.icu/img/url.io?bili=2"><pre>https://api.ayaka.icu/img/url.io?bili=2</pre></a>
+        <p>注意：</p>
+        <pre>1. 该api远弱于: https://api.ayaka.icu/img/url
+2. 非必要不使用</pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 03 -------->
+        <a name="api3"></a>
+        <p class="p1">API-<img src="https://api.ayaka.icu/img/count?num=3&max=2" alt="">-随机从url库中获取随机图片 JSON 字符串</p>
+        <pre class="copyText">https://api.ayaka.icu/img/url/json <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//非必要参数, 不写默认为 bili=1
+bili=1 : 横图
+bili=2 : 竖图
+bili=3 : 类似正方形 (较少)</pre>
+        <p>访问API</p>
+        <a href="https://api.ayaka.icu/img/url/json"><pre>https://api.ayaka.icu/img/url/json</pre></a>
+        <p>JSON数据示例:</p>
+        <pre style="text-shadow: initial;"><span>{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="json_key">"size"</span> : <span
+                class="json_string">"0.58MB"</span><span
+                class="json_note"> #图片大小</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="json_key">"type"</span> : <span
+                class="json_string">"jpg"</span><span
+                class="json_note"> #图片大小</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="json_key">"url"</span> : <span
+                class="json_string"><a style="color: #3ab54a; font-weight:bold" href="https://ayaka-icu-oss.oss-cn-beijing.aliyuncs.com/img/cat/cat02.png">"https://ayaka-icu-oss.oss-cn-beijing.aliyuncs.com/img/cat/cat02.png"</a></span><span
+                class="json_note"> #图片地址</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                class="json_key">"width"</span> : <span class="json_string">"2000"</span><span
+                class="json_note"> #图片宽度</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                class="json_key">"height"</span> : <span class="json_string">"1125"</span><span
+                class="json_note"> #图片高度</span><br>}</span></pre>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 04 -------->
+        <a name="api4"></a>
+        <p  class="p1">API-<img src="https://api.ayaka.icu/img/count?num=4&max=2" alt="">-随机从file库中获取随即一张图片-响应体返回</p>
+        <pre class="copyText">https://api.ayaka.icu/img/file.io <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//非必要参数, 不写默认为 bili=1
+bili=1 : 横图
+bili=2 : 竖图
+bili=3 : 类似正方形 (较少)</pre>
+        <p>示例1：</p>
+        <a href="https://api.ayaka.icu/img/file.io"><pre>https://api.ayaka.icu/img/file.io</pre></a>
+        <p>示例2：</p>
+        <a href="https://api.ayaka.icu/img/file.io?bili=2"><pre>https://api.ayaka.icu/img/file.io?bili=2</pre></a>
+        <p>注意：</p>
+        <pre>File库中的图片并不多，File库图片源于该网站部署的服务器，站长可以放入自己的图片</pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 05 -------->
+        <a name="api5"></a>
+        <p class="p1">API-<img src="https://api.ayaka.icu/img/count?num=5&max=2" alt="">-随机从 [url库] 和 [file库] 中获取随即一张图片 🍡</p>
+        <pre class="copyText">https://api.ayaka.icu/img/all <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//非必要参数, 不写默认为 bili=1
+bili=1 : 横图
+bili=2 : 竖图
+bili=3 : 类似正方形 (较少)</pre>
+        <p>示例1：</p>
+        <a href="https://api.ayaka.icu/img/all"><pre>https://api.ayaka.icu/img/all</pre></a>
+        <p>示例2：</p>
+        <a href="https://api.ayaka.icu/img/all?bili=2"><pre>https://api.ayaka.icu/img/all?bili=2</pre></a>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 06 -------->
+        <a name="api6"></a>
+        <p  class="p1">API-<img src="https://api.ayaka.icu/img/count?num=6&max=2" alt="">-获取给定诺干の诺干URL-随机一个重定向</p>
+        <pre class="copyText">https://api.ayaka.icu/img/tool/urls?urls=xxx@@xxx <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+urls是必要参数 <br>
+urls=路径1@@路径2@@更多 <br>
+多个路径以 @@ 相分割</pre>
+        <p>示例1：</p>
+        <a href="https://api.ayaka.icu/img/tool/urls?urls=http://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@http://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg"><pre>https://api.ayaka.icu//img/tool/urls?urls=http://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@http://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg</pre></a>
+        <p>示例2：</p>
+        <pre>不仅适用于图片连接，其他连接依然适用<br><a href="https://api.ayaka.icu/img/tool/urls?urls=https://blog.ayaka.icu@@https://cloud.ayaka.icu">https://api.ayaka.icu/img/tool/urls?urls=https://blog.ayaka.icu@@https://cloud.ayaka.icu</a> </pre>
+        <p>注意：</p>
+        <pre>File库中的图片并不多，File库图片源于该网站部署的服务器，站长可以放入自己的图片</pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 07 -------->
+        <a name="api7"></a>
+        <p  class="p1">API-<img src="https://api.ayaka.icu/img/count?num=7&max=2" alt="">-获取给定诺干の诺干URL-随机一个响应体返回图片</p>
+        <pre class="copyText">https://api.ayaka.icu/img/tool/urls.io?urls=xxx@@xxx <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+urls是必要参数 <br>
+urls=路径1@@路径2@@更多 <br>
+多个路径以 @@ 相分割</pre>
+        <p>示例:</p>
+        <a href="https://api.ayaka.icu/img/tool/urls.io?urls=https://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@https://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg"><pre>https://api.ayaka.icu/img/tool/urls.io?urls=http://img.ayaka.icu/i/2023/03/25/641e74f1770ad.jpg@@http://img.ayaka.icu/i/2023/03/25/641e80711778b.jpg</pre></a>
+        <p>注意：</p>
+        <pre>- 非图片链接无法使用！
+- 性能 /img/tool/urls?urls=xxx@@xxx 差
+- 非必要请勿使用！</pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 08 -------->
+        <a name="api8"></a>
+        <p  class="p1">API-<img src="https://api.ayaka.icu/img/count?num=8&max=2" alt="">- 获取数字图片-图片计数器</p>
+        <pre class="copyText">https://api.ayaka.icu/img/count?num=666 <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//必要参数: num 指定要计数的数字<br>
+num=666  <br>
+//非必要参数: max 指定要计数格式，前位未满补 0，不写默认为 6 位
+//当 num > max  时，跟随 num 大小： max = num <br>
+max=6   </pre>
+        <p>示例1：</p>
+        <a href="http://api.ayaka.icu/img/count?num=789"><pre>http://api.ayaka.icu/img/count?num=789</pre></a>
+        <p>效果1：</p>
+        <pre><img src="http://api.ayaka.icu/img/count?num=789" alt=""></pre>
+        <p>示例2：</p>
+        <a href="http://api.ayaka.icu/img/count?num=123456&max=8"><pre>http://api.ayaka.icu/img/count?num=123456&max=8</pre></a>
+        <p>效果2：</p>
+        <pre><img src="http://api.ayaka.icu/img/count?num=123456&max=8" alt=""></pre>
+        <p>示例3：</p>
+        <a href="https://api.ayaka.icu/img/count?num=87654321"><pre>https://api.ayaka.icu/img/count?num=87654321</pre></a>
+        <p>效果3：</p>
+        <pre><img src="https://api.ayaka.icu/img/count?num=87654321" alt=""></pre>
+        <p>注意：</p>
+        <pre>允许最大位数为 11 位，后续可能扩大......</pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+        <!-------- API - 09 -------->
+        <a name="api9"></a>
+        <p  class="p1">API-<img src="https://api.ayaka.icu/img/count?num=9&max=2" alt="">-获取给定诺干个Icon名称，返回这些图标，转发</p>
+        <pre class="copyText">https://api.ayaka.icu/icons?i=icon1,icon2,icon3 <button class="copyBtn copy-button"></button></pre>
+        <p>参数：</p>
+        <pre>
+//i:必要 , theme:非必要 , size:非必要<br>
+- i : 给定的icon参数
+  - 多个以英文 , 相隔开
+  - 更多图标参数请查看: <a href="https://github.com/tandpfun/skill-icons#icons-list">https://github.com/tandpfun/skill-icons#icons-list</a> <br>
+- theme : 主题色
+  - 1 为黑暗色 默认
+  - 2 为明亮色<br>
+- size : 每行最多多少个图片，超过自动分行
+  - 默认为 15</pre>
+        <p>示例1：</p>
+        <a href="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md"><pre>http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md</pre></a>
+        <p>效果1：</p>
+        <pre><img src="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md" alt=""></pre>
+        <p>示例2：</p>
+        <a href="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md&theme=2"><pre>http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md&theme=2</pre></a>
+        <p>效果2：</p>
+        <pre><img src="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua,md&theme=2" alt=""></pre>
+        <p>示例3：</p>
+        <a href="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&size=5"><pre>http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&size=5</pre></a>
+        <p>效果3：</p>
+        <pre><img src="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&size=5" alt=""></pre>
+        <p>示例4：</p>
+        <a href="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&theme=2&size=5"><pre>http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&theme=2&size=5</pre></a>
+        <p>效果4：</p>
+        <pre><img src="http://api.ayaka.icu/icons?i=java,idea,nginx,docker,redis,spring,mysql,github,linux,lua&theme=2&size=5" alt=""></pre>
+        <p>注意：</p>
+        <pre>
+注意：
+
+- 这个API实际是重定向: <a href="https://skillicons.dev/">https://skillicons.dev/</a>的API !
+- 他们的GitHut: <a href="https://github.com/tandpfun/skill-icons">https://github.com/tandpfun/skill-icons</a>
+- 你可以直接使用它们的Api，毕竟经过了2次请求！
+- 我只是做了转发重定向，整合到一起。
+- 再次感谢他们🥰 <a href="https://ko-fi.com/thijsdev">https://ko-fi.com/thijsdev</a>
+        </pre>
+        <br>
+
+        <br><img src="img/hr.gif" style="width:100%" alt=""><br><br>
+
+    </div>
+
+    <div class="bottom">
+        <p> Copyright © 2022 <a href="https://ayaka.icu">Ayaka-icu</a></p>
+        <p>备案号: <a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备&nbsp;<img src="http://api.ayaka.icu/img/count?num=2023003435" alt="" width="250px"> 号-1</a></p>
+    </div>
+
+</div>
+
+<a href="#doc" class="fixed-button">🏷️TOC</a>
+
+</body>
+<script>
+
+</script>
+
+<!-- JavaScript 代码 -->
+<script>
+
+    // 宽度 < 高度
+    if (window.innerWidth < window.innerHeight) {
+        //设置竖屏壁纸
+        document.body.style.background = "url('http://api.ayaka.icu/img/url?bili=2') no-repeat fixed center center";
+        document.body.style.backgroundSize = "cover";
+        //toc-button位置
+        document.querySelector(".fixed-button").style.right = "1%"; //将right属性设置为20px
+    }
+
+    // 复制逻辑
+    const copyBtns = document.querySelectorAll('.copyBtn');
+    const copyTexts = document.querySelectorAll('.copyText');
+    for (let i = 0; i < copyBtns.length; i++) {
+        copyBtns[i].addEventListener('click', () => {
+            const text = copyTexts[i].innerText;
+            navigator.clipboard.writeText(text)
+        });
+    }
+
+</script>
+
+
+</html>

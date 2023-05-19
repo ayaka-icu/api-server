@@ -61,7 +61,6 @@ public class ImgController {
     /**
      * 获取随机图片 Url
      *
-     * @return 随机图片 URL
      */
     @GetMapping("/url.io")
     public void random2(@RequestParam(value = "bili",required = false,defaultValue = "1") String bili,HttpServletResponse response){
